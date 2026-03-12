@@ -15,6 +15,7 @@ class Level:
         self.game_mode = game_mode
         self.entity_list: list[Entity] = []
         self.entity_list.extend(EntityFactory.get_entity(entity_name="Level1Bg"))
+        self.entity_list.append(EntityFactory.get_entity(entity_name="Player1"))
         self.timeout: int = 20000
 
     def run(self):
