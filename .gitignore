@@ -9,6 +9,7 @@ __pycache__/
 
 # C extensions
 *.so
+.ai
 
 # Distribution / packaging
 .Python
@@ -174,6 +175,7 @@ poetry.toml
 pyrightconfig.json
 
 .idea/
+.idea/workspace.xml
 *.iml
 .ai/
 
