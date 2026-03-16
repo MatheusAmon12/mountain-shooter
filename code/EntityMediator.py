@@ -50,6 +50,18 @@ class EntityMediator:
                 entity_to_compare.last_damage = entity_ref.name
 
     @staticmethod
+    def __give_score(enemy: Enemy, entity_list: list[Entity]):
+        if enemy.last_damage == 'Player1Shot':
+            for entity in entity_list:
+                if entity.name == 'Player1':
+                    entity.score += enemy.score
+
+        elif enemy.last_damage == 'Player2Shot':
+            for entity in entity_list:
+                if entity.name == 'Player2':
+                    entity.score += enemy.score
+
+    @staticmethod
     def verify_collision(entity_list: list[Entity]):
         for i in range(len(entity_list)):
             entity_ref = entity_list[i]
@@ -66,4 +78,7 @@ class EntityMediator:
     def verify_health(entity_list: list[Entity]):
         for entity in entity_list:
             if entity.health <= 0:
+                if isinstance(entity, Enemy):
+                    EntityMediator.__give_score(entity, entity_list)
+
                 entity_list.remove(entity)
