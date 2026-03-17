@@ -5,7 +5,7 @@ from pygame.font import FontType
 from pygame.rect import RectType
 from pygame.surface import SurfaceType
 
-from code.Const import MENU_TEXT_COLOR, WIN_HEIGHT, MENU_OPTION, EVENT_ENEMY, SPAWN_TIME
+from code.Const import C_WHITE, WIN_HEIGHT, MENU_OPTION, EVENT_ENEMY, SPAWN_TIME, C_GREEN, C_CYAN
 from code.Enemy import Enemy
 from code.Entity import Entity
 from code.EntityFactory import EntityFactory
@@ -45,6 +45,13 @@ class Level:
                     if shoot is not None:
                         self.entity_list.append(shoot)
 
+                if entity.name == "Player1":
+                    self.level_text(14, f'Player1 - Health: {entity.health} | Score: {entity.score}', C_GREEN,
+                                    (10, 25))
+
+                if entity.name == "Player2":
+                    self.level_text(14, f'Player2 - Health: {entity.health} | Score: {entity.score}', C_CYAN, (10, 45))
+
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
@@ -54,16 +61,17 @@ class Level:
                     choice = random.choice(('Enemy1', 'Enemy2'))
                     self.entity_list.append(EntityFactory.get_entity(entity_name=choice))
 
-            self.level_text(14, f'{self.name} - Timeout: {self.timeout / 1000 :.1f}s', MENU_TEXT_COLOR, (10, 5))
-            self.level_text(14, f'FPS: {clock.get_fps() :.0f}', MENU_TEXT_COLOR, (10, WIN_HEIGHT - 35))
-            self.level_text(14, f'entidades: {len(self.entity_list)}', MENU_TEXT_COLOR, (10, WIN_HEIGHT - 20))
+            self.level_text(14, f'{self.name} - Timeout: {self.timeout / 1000 :.1f}s', C_WHITE, (10, 5))
+            self.level_text(14, f'FPS: {clock.get_fps() :.0f}', C_WHITE, (10, WIN_HEIGHT - 35))
+            self.level_text(14, f'entidades: {len(self.entity_list)}', C_WHITE, (10, WIN_HEIGHT - 20))
 
             pygame.display.flip()
 
             EntityMediator.verify_collision(entity_list=self.entity_list)
             EntityMediator.verify_health(entity_list=self.entity_list)
 
-    def level_text(self, text_size: int, text: str, text_color: tuple[int, int, int, int] = (255, 255, 255), text_position: tuple[float, float] = (0, 0)):
+    def level_text(self, text_size: int, text: str, text_color: tuple[int, int, int, int] = (255, 255, 255),
+                   text_position: tuple[float, float] = (0, 0)):
         text_font: FontType = pygame.font.SysFont(name="Lucida Sans Typewriter", size=text_size)
         text_surf: SurfaceType = text_font.render(text, True, text_color).convert_alpha()
         text_rect: RectType = text_surf.get_rect(left=text_position[0], top=text_position[1])

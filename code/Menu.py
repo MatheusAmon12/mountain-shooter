@@ -3,7 +3,7 @@ from pygame.font import FontType
 from pygame.rect import RectType
 from pygame.surface import SurfaceType
 
-from code.Const import WIN_WIDTH, MENU_TITLE_COLOR, MENU_OPTION, MENU_TEXT_COLOR, MENU_FOCUS_COLOR
+from code.Const import WIN_WIDTH, C_ORANGE, MENU_OPTION, C_WHITE, C_YELLOW
 
 
 class Menu:
@@ -19,14 +19,14 @@ class Menu:
 
         while True:
             self.window.blit(source=self.surf, dest=self.rect)
-            self.menu_text(50, "Mountain", MENU_TITLE_COLOR, ((WIN_WIDTH / 2), 70))
-            self.menu_text(50, "Shooter", MENU_TITLE_COLOR, ((WIN_WIDTH / 2), 120))
+            self.menu_text(50, "Mountain", C_ORANGE, ((WIN_WIDTH / 2), 70))
+            self.menu_text(50, "Shooter", C_ORANGE, ((WIN_WIDTH / 2), 120))
 
             for option in range(len(MENU_OPTION)):
                 if option == menu_option:
-                    self.menu_text(20, MENU_OPTION[option], MENU_FOCUS_COLOR,((WIN_WIDTH / 2), 180 + 25 * option))
+                    self.menu_text(20, MENU_OPTION[option], C_YELLOW, ((WIN_WIDTH / 2), 180 + 25 * option))
                 else:
-                    self.menu_text(20, MENU_OPTION[option], MENU_TEXT_COLOR, ((WIN_WIDTH / 2), 180 + 25 * option) )
+                    self.menu_text(20, MENU_OPTION[option], C_WHITE, ((WIN_WIDTH / 2), 180 + 25 * option))
 
             pygame.display.flip()
 
